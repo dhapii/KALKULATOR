@@ -3,22 +3,16 @@ const calculator = {
     firstOperand: null,
     waitingForSecondOperand: false,
     operator: null,
-    operatorJustPressed: false,
 };
 
 function inputDigit(digit) {
-    const { displayValue, waitingForSecondOperand, operatorJustPressed } = calculator;
+    const { displayValue, waitingForSecondOperand } = calculator;
 
     if (waitingForSecondOperand === true) {
         calculator.displayValue = digit;
         calculator.waitingForSecondOperand = false;
     } else {
-        if (operatorJustPressed) {
-            calculator.displayValue = digit;
-            calculator.operatorJustPressed = false;
-        } else {
-            calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
-        }
+        calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
     }
 }
 
@@ -53,7 +47,6 @@ function handleOperator(nextOperator) {
 
     calculator.waitingForSecondOperand = true;
     calculator.operator = nextOperator;
-    calculator.operatorJustPressed = true;
 }
 
 function calculate(firstOperand, secondOperand, operator) {
@@ -75,7 +68,6 @@ function resetCalculator() {
     calculator.firstOperand = null;
     calculator.waitingForSecondOperand = false;
     calculator.operator = null;
-    calculator.operatorJustPressed = false;
 }
 
 function updateDisplay() {
@@ -109,16 +101,9 @@ keys.addEventListener('click', (event) => {
         return;
     }
 
-    if (target.value === '=') {
-        if (calculator.firstOperand !== null && calculator.operator) {
-            const secondOperand = parseFloat(calculator.displayValue);
-            const result = calculate(calculator.firstOperand, secondOperand, calculator.operator);
-
-            calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
-            calculator.firstOperand = null;
-            calculator.operator = null;
-            calculator.waitingForSecondOperand = false;
-        }
+    if (target.classList.contains('equal-sign')) {
+        handleOperator(target.value);
+        calculator.waitingForSecondOperand = false;
         updateDisplay();
         return;
     }
