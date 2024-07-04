@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e0e0e0;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+.calculator {
+    width: 320px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 10px;
+}
+
+.calculator-screen {
+    width: calc(100% - 40px); /* Menyesuaikan lebar input */
+    height: 80px;
+    border: none;
+    background-color: #252525;
+    color: #ffffff;
+    text-align: right;
+    padding: 0 20px;
+    font-size: 2.5rem;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+}
+
+.calculator-keys button {
+    height: 60px;
+    font-size: 1.5rem;
+    border: none;
+    background-color: #f0f0f0;
+    color: #333333;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-keys button:hover {
+    background-color: #e0e0e0;
+}
+
+.calculator-keys button:active {
+    background-color: #d0d0d0;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-keys button.operator {
+    background-color: #f5913e;
+    color: #ffffff;
+}
+
+.calculator-keys button.operator:hover {
+    background-color: #e07b27;
+}
+
+.calculator-keys button.all-clear {
+    background-color: #f0595f;
+    color: #ffffff;
+    grid-column: span 2;
+}
+
+.calculator-keys button.all-clear:hover {
+    background-color: #d6484b;
+}
+
+.calculator-keys button.equal-sign {
+    background-color: #2e86c1;
+    color: #ffffff;
+    grid-column: span 2;
+}
+
+.calculator-keys button.equal-sign:hover {
+    background-color: #246a9b;
+}
