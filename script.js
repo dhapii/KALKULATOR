@@ -14,6 +14,8 @@ function inputDigit(digit) {
     } else {
         calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
     }
+
+    adjustFontSize();
 }
 
 function inputDecimal(dot) {
@@ -26,6 +28,8 @@ function inputDecimal(dot) {
     if (!calculator.displayValue.includes(dot)) {
         calculator.displayValue += dot;
     }
+
+    adjustFontSize();
 }
 
 function handleOperator(nextOperator) {
@@ -47,6 +51,8 @@ function handleOperator(nextOperator) {
 
     calculator.waitingForSecondOperand = true;
     calculator.operator = nextOperator;
+
+    adjustFontSize();
 }
 
 function calculate(firstOperand, secondOperand, operator) {
@@ -68,11 +74,35 @@ function resetCalculator() {
     calculator.firstOperand = null;
     calculator.waitingForSecondOperand = false;
     calculator.operator = null;
+
+    adjustFontSize();
+}
+
+function backspace() {
+    calculator.displayValue = calculator.displayValue.slice(0, -1);
+    if (calculator.displayValue === '') {
+        calculator.displayValue = '0';
+    }
+
+    adjustFontSize();
 }
 
 function updateDisplay() {
     const display = document.querySelector('.calculator-screen');
     display.value = calculator.displayValue;
+}
+
+function adjustFontSize() {
+    const display = document.querySelector('.calculator-screen');
+    const length = calculator.displayValue.length;
+
+    if (length > 10) {
+        display.style.fontSize = '1.5rem';
+    } else if (length > 5) {
+        display.style.fontSize = '2rem';
+    } else {
+        display.style.fontSize = '2.5rem';
+    }
 }
 
 const keys = document.querySelector('.calculator-keys');
@@ -97,6 +127,12 @@ keys.addEventListener('click', (event) => {
 
     if (target.classList.contains('all-clear')) {
         resetCalculator();
+        updateDisplay();
+        return;
+    }
+
+    if (target.classList.contains('backspace')) {
+        backspace();
         updateDisplay();
         return;
     }
